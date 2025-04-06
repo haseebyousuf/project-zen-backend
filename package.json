@@ -24,7 +24,9 @@
         "@types/bcrypt": "^5.0.2",
         "@types/express": "^5.0.1",
         "@types/jsonwebtoken": "^9.0.9",
+        "@types/mailgen": "^2.0.7",
         "@types/node": "^22.14.0",
+        "@types/nodemailer": "^6.4.17",
         "eslint": "^9.24.0",
         "eslint-plugin-perfectionist": "^4.11.0",
         "prettier": "^3.5.3",
@@ -38,7 +40,9 @@
         "dotenv": "^16.4.7",
         "express": "^5.1.0",
         "jsonwebtoken": "^9.0.2",
+        "mailgen": "^2.0.29",
         "mongoose": "^8.13.2",
+        "nodemailer": "^6.10.0",
         "zod": "^3.24.2",
         "zod-validation-error": "^3.4.0"
     }
