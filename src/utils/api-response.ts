@@ -3,7 +3,7 @@ import ErrorResponse from "./error-response.js";
 type ApiResponseParams<T> = {
     statusCode: number;
     message?: string;
-    data: T | null;
+    data?: T;
 };
 
 class ApiResponse {
