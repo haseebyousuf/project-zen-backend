@@ -15,7 +15,7 @@ export const sendMail = async ({
         theme: "default",
         product: {
             name: "Project Zen",
-            link: "https://mailgen.js/",
+            link: "https://projectzen.com/",
         },
     });
 
@@ -23,23 +23,33 @@ export const sendMail = async ({
     const emailHTML = mailGenerator.generate(content);
 
     const transporter = nodemailer.createTransport({
-        host: process.env.MailTRAP_SMPT_HOST,
-        port: Number(process.env.port),
+        host: process.env.MAILTRAIP_SMPT_HOST!,
+        port: Number(process.env.MAILTRAIP_SMPT_PORT),
         secure: false, // true for port 465
         auth: {
-            user: process.env.MailTRAP_SMPT_USER,
-            pass: process.env.MailTRAP_SMPT_PASS,
+            user: process.env.MAILTRAIP_SMPT_USER,
+            pass: process.env.MAILTRAIP_SMPT_PASS,
         },
     });
     try {
+        await transporter.verify();
+        Logger.info("SMTP connection verified successfully");
         await transporter.sendMail({
-            from: "hello@projectzen.com",
+            from: `"Project Zen" <${process.env.EMAIL}>`,
             to: email,
             subject: subject,
             text: emailText,
             html: emailHTML,
         });
+        Logger.info(`Email sent successfully`);
     } catch (error) {
-        Logger.error(`${error}`, "Email");
+        Logger.error(
+            `Failed to send email: ${error instanceof Error ? error.message : "Unknown error"}`,
+        );
+        throw new Error(
+            `Email sending failed: ${error instanceof Error ? error.message : "Unknown error"}`,
+        );
+    } finally {
+        transporter.close();
     }
 };
